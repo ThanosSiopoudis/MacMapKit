@@ -7,7 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import <MapKit/MKView.h>
+#import "MKView.h"
 #import <WebKit/WebKit.h>
 
 enum {
@@ -46,7 +46,7 @@ typedef NSUInteger MKAnnotationViewDragState;
 // Classes that override must call super.
 - (void)prepareForReuse;
 
-@property (nonatomic, retain) id <MKAnnotation> annotation;
+@property (nonatomic, strong) id <MKAnnotation> annotation;
 
 @property (nonatomic, copy) NSString *imageUrl;
 

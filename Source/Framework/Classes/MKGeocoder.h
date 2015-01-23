@@ -9,12 +9,12 @@
 #import <Cocoa/Cocoa.h>
 #import <CoreLocation/CLLocation.h>
 #import <WebKit/WebKit.h>
-#import <MapKit/MKTypes.h>
+#import "MKTypes.h"
 
 @protocol MKGeocoderDelegate;
 
 @interface MKGeocoder : NSObject {
-    id <MKGeocoderDelegate> delegate;
+    id <MKGeocoderDelegate> __strong delegate;
     NSString *address;
     BOOL hasOriginatingCoordinate;
     CLLocationCoordinate2D originatingCoordinate;
@@ -33,7 +33,7 @@
 - (void)start;
 - (void)cancel;
 
-@property (nonatomic, assign) id<MKGeocoderDelegate> delegate;
+@property (nonatomic, strong) id<MKGeocoderDelegate> delegate;
 @property (nonatomic, readonly) NSString *address;
 @property (nonatomic, readonly) CLLocationCoordinate2D coordinate;      // the resulting geocoded coordinate.
 @property (nonatomic, readonly, getter=isQuerying) BOOL querying;

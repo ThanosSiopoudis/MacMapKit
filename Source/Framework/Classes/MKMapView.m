@@ -9,14 +9,14 @@
 #import "MKMapView.h"
 #import "MKMapView+Private.h"
 #import "JSON.h"
-#import <MapKit/MKUserLocation.h>
+#import "MKUserLocation.h"
 #import "MKUserLocation+Private.h"
-#import <MapKit/MKCircleView.h>
-#import <MapKit/MKCircle.h>
-#import <MapKit/MKPolyline.h>
-#import <MapKit/MKPolygon.h>
-#import <MapKit/MKAnnotationView.h>
-#import <MapKit/MKPointAnnotation.h>
+#import "MKCircleView.h"
+#import "MKCircle.h"
+#import "MKPolyline.h"
+#import "MKPolygon.h"
+#import "MKAnnotationView.h"
+#import "MKPointAnnotation.h"
 #import "MKMapView+DelegateWrappers.h"
 #import "MKMapView+WebViewIntegration.h"
 #import "MKWebView.h"
@@ -60,18 +60,7 @@
     [webView setFrameLoadDelegate:nil];
     delegate = nil;
     [webView removeFromSuperview];
-    [webView autorelease];
     [locationManager stopUpdatingLocation];
-    [locationManager release];
-    [userLocation release];
-    [overlays release];
-    [overlayViews release];
-    [overlayScriptObjects release];
-    [annotations release];
-    [selectedAnnotations release];
-    [annotationViews release];
-    [annotationScriptObjects release];
-    [super dealloc];
 }
 
 - (void)setFrame:(NSRect)frameRect
@@ -198,7 +187,6 @@
         [self setUserLocationMarkerVisible: NO];
         [userLocation _setUpdating:NO];
         [locationManager stopUpdatingLocation];
-		[locationManager release];
 		locationManager = nil;
         [userLocation _setLocation:nil];
     }
@@ -222,7 +210,7 @@
 
 - (NSArray *)overlays
 {
-    return [[overlays copy] autorelease];
+    return [overlays copy];
 }
 
 - (void)addOverlay:(id < MKOverlay >)overlay
@@ -246,12 +234,10 @@
         return;
     }
     
-    id < MKOverlay > overlay1 = [[overlays objectAtIndex: index1] retain];
-    id < MKOverlay > overlay2 = [[overlays objectAtIndex: index2] retain];
+    id < MKOverlay > overlay1 = [overlays objectAtIndex: index1];
+    id < MKOverlay > overlay2 = [overlays objectAtIndex: index2];
     [overlays replaceObjectAtIndex:index2 withObject:overlay1];
     [overlays replaceObjectAtIndex:index1 withObject:overlay2];
-    [overlay1 release];
-    [overlay2 release];
     [self updateOverlayZIndexes];
 }
 
@@ -358,7 +344,7 @@
 
 - (NSArray *)annotations
 {
-    return [[annotations copy] autorelease];
+    return [annotations copy];
 }
 
 - (void)addAnnotation:(id < MKAnnotation >)annotation
@@ -492,7 +478,7 @@
 
 - (NSArray *)selectedAnnotations
 {
-    return [[selectedAnnotations copy] autorelease];
+    return [selectedAnnotations copy];
 }
 
 - (void)setSelectedAnnotations:(NSArray *)someAnnotations
@@ -503,9 +489,8 @@
     {
         [self deselectAnnotation:annotation animated:NO];
     }
-    NSMutableArray *newSelectedAnnotations = [NSMutableArray arrayWithArray: [[someAnnotations copy] autorelease]];
-    [selectedAnnotations release];
-    selectedAnnotations = [newSelectedAnnotations retain];
+    NSMutableArray *newSelectedAnnotations = [NSMutableArray arrayWithArray: [someAnnotations copy]];
+    selectedAnnotations = newSelectedAnnotations;
     
     // If it's manually set and there's more than one, you only select the first according to the docs.
     if ([selectedAnnotations count] > 0)

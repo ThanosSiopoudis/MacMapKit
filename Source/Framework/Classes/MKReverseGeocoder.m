@@ -100,9 +100,7 @@
 
 - (void)dealloc
 {
-    [placemark release];
     [self destroyWebView];
-    [super dealloc];
 }
 
 
@@ -133,8 +131,8 @@
         return;
     
     id result = [jsonAddress JSONValue];
-    MKPlacemark *aPlacemark = [[[MKPlacemark alloc] initWithGoogleGeocoderResult: result] autorelease];
-    placemark = [aPlacemark retain];
+    MKPlacemark *aPlacemark = [[MKPlacemark alloc] initWithGoogleGeocoderResult: result];
+    placemark = aPlacemark;
     
     if (delegate && [delegate respondsToSelector:@selector(reverseGeocoder:didFindPlacemark:)])
     {
@@ -206,7 +204,6 @@
 - (void)destroyWebView
 {
     [webView close];
-    [webView release];
 }
 
 - (void)_start

@@ -7,7 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import <MapKit/MKAnnotation.h>
+#import "MKAnnotation.h"
 
 @class CLLocation;
 
@@ -25,10 +25,10 @@
 @property (readonly, nonatomic) CLLocation *location;
 
 // The title to be displayed for the user location annotation.
-@property (retain, nonatomic) NSString *title;
+@property (strong, nonatomic) NSString *title;
 
 // The subtitle to be displayed for the user location annotation.
-@property (retain, nonatomic) NSString *subtitle;
+@property (strong, nonatomic) NSString *subtitle;
 
 
 @end

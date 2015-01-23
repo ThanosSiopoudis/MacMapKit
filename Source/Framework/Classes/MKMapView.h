@@ -9,10 +9,10 @@
 #import <Cocoa/Cocoa.h>
 #import <WebKit/WebKit.h>
 #import <CoreLocation/CoreLocation.h>
-#import <MapKit/MKTypes.h>
-#import <MapKit/MKGeometry.h>
-#import <MapKit/MKOverlay.h>
-#import <MapKit/MKAnnotationView.h>
+#import "MKTypes.h"
+#import "MKGeometry.h"
+#import "MKOverlay.h"
+#import "MKAnnotationView.h"
 
 @protocol MKMapViewDelegate;
 @class MKUserLocation;
@@ -20,7 +20,7 @@
 @class MKWebView;
 
 @interface MKMapView : NSView <CLLocationManagerDelegate, NSCoding> {    
-    id <MKMapViewDelegate> delegate;
+    id <MKMapViewDelegate> __strong delegate;
     MKMapType mapType;
     MKUserLocation *userLocation;
     BOOL showsUserLocation;
@@ -41,7 +41,7 @@
 
     
 }
-@property (nonatomic, assign) id <MKMapViewDelegate> delegate;
+@property (nonatomic, strong) id <MKMapViewDelegate> delegate;
 
 @property(nonatomic) MKMapType mapType;
 @property(nonatomic, readonly) MKUserLocation *userLocation;

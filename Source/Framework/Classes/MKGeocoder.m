@@ -88,7 +88,7 @@
     if (self = [super init])
     {
         [self createWebView];
-        address = [anAddress retain];
+        address = anAddress;
         hasOriginatingCoordinate = NO;
     }
     return self;
@@ -99,7 +99,7 @@
     if (self = [super init])
     {
         [self createWebView];
-        address = [anAddress retain];
+        address = anAddress;
         hasOriginatingCoordinate = YES;
         originatingCoordinate = aCoordinate;
     }
@@ -109,9 +109,7 @@
 
 - (void)dealloc
 {
-    [address release];
     [self destroyWebView];
-    [super dealloc];
 }
 
 
@@ -142,7 +140,6 @@
     id result = [jsonEncodedGeocoderResult JSONValue];
     MKPlacemark *aPlacemark = [[MKPlacemark alloc] initWithGoogleGeocoderResult: result];
     coordinate = aPlacemark.coordinate;
-    [aPlacemark release];
     
     if (delegate && [delegate respondsToSelector:@selector(geocoder:didFindCoordinate:)])
     {
@@ -215,7 +212,6 @@
 - (void)destroyWebView
 {
     [webView close];
-    [webView release];
 }
 
 - (void)_start

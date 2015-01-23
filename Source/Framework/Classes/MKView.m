@@ -36,7 +36,7 @@
 
 - (WebScriptObject *)overlayScriptObjectFromMapScriptObject:(WebScriptObject *)mapScriptObject
 {
-    NSString *script = [NSString stringWithFormat:@"new %@()", [self viewPrototypeName]];
+    NSString *script = [NSString stringWithFormat:@"new %@();", [self viewPrototypeName]];
     WebScriptObject *object = (WebScriptObject *)[mapScriptObject evaluateWebScript:script];
     return object;
 }

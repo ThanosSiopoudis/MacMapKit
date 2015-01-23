@@ -7,7 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import <MapKit/MKOverlayView.h>
+#import "MKOverlayView.h"
 
 @interface MKOverlayPathView : MKOverlayView {
     NSColor *fillColor;
@@ -15,8 +15,8 @@
     CGFloat lineWidth;
 }
 
-@property (nonatomic, retain) NSColor *fillColor;
-@property (nonatomic, retain) NSColor *strokeColor;
+@property (nonatomic, strong) NSColor *fillColor;
+@property (nonatomic, strong) NSColor *strokeColor;
 @property (nonatomic, assign) CGFloat lineWidth;
 
 @end

@@ -9,13 +9,13 @@
 #import <Cocoa/Cocoa.h>
 #import <CoreLocation/CLLocation.h>
 #import <WebKit/WebKit.h>
-#import <MapKit/MKTypes.h>
+#import "MKTypes.h"
 
 @class MKPlacemark;
 @protocol MKReverseGeocoderDelegate;
 
 @interface MKReverseGeocoder : NSObject {
-    id <MKReverseGeocoderDelegate> delegate;
+    id <MKReverseGeocoderDelegate> __strong delegate;
     CLLocationCoordinate2D coordinate;
     MKPlacemark *placemark;
     BOOL querying;
@@ -31,7 +31,7 @@
 - (void)start;
 - (void)cancel;
 
-@property (nonatomic, assign) id<MKReverseGeocoderDelegate> delegate;
+@property (nonatomic, strong) id<MKReverseGeocoderDelegate> delegate;
 @property (nonatomic, readonly) CLLocationCoordinate2D coordinate;      // the exact coordinate being reverse geocoded.
 @property (nonatomic, readonly) MKPlacemark *placemark;
 @property (nonatomic, readonly, getter=isQuerying) BOOL querying;
