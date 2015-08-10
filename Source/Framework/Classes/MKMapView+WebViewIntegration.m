@@ -346,7 +346,8 @@
     
     // Create a corresponding NSEvent object so that we can popup a context menu
     NSPoint pointOnScreen = [NSEvent mouseLocation];
-    NSPoint pointInBase = [[self window] convertScreenToBase: pointOnScreen];
+    NSRect rect = [[self window] convertRectFromScreen:NSMakeRect(pointOnScreen.x, pointOnScreen.y, 0, 0)];
+    NSPoint pointInBase = rect.origin;
     
     NSEvent *event = [NSEvent mouseEventWithType:NSRightMouseUp  
                                         location:pointInBase

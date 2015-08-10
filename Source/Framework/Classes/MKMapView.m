@@ -632,7 +632,7 @@
     // CoreLocation can sometimes trigger before the page has even finished loading.
     if (self.showsUserLocation && userLocation.location)
     {
-        [self locationManager: locationManager didUpdateToLocation: userLocation.location fromLocation:nil];
+        [self locationManager: locationManager didUpdateToLocation: userLocation.location fromLocation:userLocation.location];
     }
     
     if ([frame isEqual:[webView mainFrame]])
